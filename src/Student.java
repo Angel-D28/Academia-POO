@@ -20,4 +20,13 @@ public class Student {
     public Enrollment[] getEnrollmentCourses() {
         return enrollmentCourses;
     }
+
+    public void addEnrollmentCourses(Enrollment enrollment) {
+        for (int i = 0; i < enrollmentCourses.length; i++) {
+            if (enrollmentCourses[i] == null) {
+                enrollmentCourses[i] = enrollment;
+                break;
+            }
+        }
+    }
 }

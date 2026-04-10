@@ -2,11 +2,17 @@ public class Enrollment {
     private Student student;
     private Course course;
     private String idEnrollment;
+    private int Counter = 0;
 
-    public Enrollment(Student student, Course course, String idEnrollment) {
+    public Enrollment(Student student, Course course) {
         this.student = student;
         this.course = course;
-        this.idEnrollment = idEnrollment;
+        this.idEnrollment = uniqueId();
+    }
+    private String uniqueId() {
+        String uniqueId  =  "COUU-00" + Counter++;
+        Counter++;
+        return uniqueId;
     }
 
     public Student getStudent() {

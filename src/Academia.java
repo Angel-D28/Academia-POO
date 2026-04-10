@@ -15,9 +15,9 @@ public class Academia {
     }
     
     public void CreateTeacher(){
-        System.out.println("Enter the name of the teacher:");
+        System.out.print("Enter the name of the teacher:");
         String name = sc.nextLine();
-        System.out.println("Enter the age of the teacher:");
+        System.out.print("Enter the age of the teacher:");
         int age = sc.nextInt();
         sc.nextLine();
         Teacher teacher = new Teacher(age, name);
@@ -34,7 +34,7 @@ public class Academia {
     }
 
     public void CreateCourse(){
-        System.out.println("Enter the name of the course:");
+        System.out.print("Enter the name of the course:");
         String name = sc.nextLine();
         Course course = new Course(name);
         addCourse(course);
@@ -50,9 +50,9 @@ public class Academia {
     }
 
     public void CreateStudent(){
-        System.out.println("Enter the name of the student:");
+        System.out.print("Enter the name of the student:");
         String name = sc.nextLine();
-        System.out.println("Enter the age of the student:");
+        System.out.print("Enter the age of the student:");
         int age = sc.nextInt();
         sc.nextLine();
         Student student = new Student(name, age);
@@ -73,7 +73,48 @@ public class Academia {
         Course courseSelected = selectCourse();
         courseSelected.setAssignedTeacher(teacherSelected);
         teacherSelected.addActiveCourses(courseSelected);
-        System.out.println("Teacher " + teacherSelected.getName() + " assigned to course " + courseSelected.getName());
+        System.out.print("Teacher " + teacherSelected.getName() + " assigned to course " + courseSelected.getName());
+    }
+
+    public void enrollStudentInCourse(Student student, Course course) {
+        Enrollment enrollment = new Enrollment(student, course);
+        course.addEnrollment(enrollment);
+        student.addEnrollmentCourses(enrollment);
+        System.out.print("Student " + student.getName() + " enrolled in course " + course.getName());
+    }
+
+    public void createEnrollment() {
+        Student studentSelected;
+        Course courseSelected;
+        do {
+        studentSelected = selectStudent();
+        courseSelected = selectCourse();
+        } while (checkEnrollments(studentSelected, courseSelected));
+        enrollStudentInCourse(studentSelected, courseSelected);
+    }
+
+    public boolean checkEnrollments(Student Student, Course course) {
+        for(int i = 0; i < Student.getEnrollmentCourses().length; i++) {
+            if (Student.getEnrollmentCourses()[i] != null && Student.getEnrollmentCourses()[i].getCourse() == course) {
+                System.out.println("The student is already enrolled in this course. Please select another course.");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Student selectStudent() {
+        Student student;
+        int studentIndex;
+        do {
+            readStudents();
+            System.out.print("Select the student by index:");
+            studentIndex = sc.nextInt();
+            student = students[studentIndex];
+            sc.nextLine();
+        } while (student == null);
+        
+        return student;
     }
 
     public Teacher selectTeacher() {
@@ -81,7 +122,7 @@ public class Academia {
         int  teacherIndex;
         do {
             readTeachers();
-            System.out.println("Select the teacher by index:");
+            System.out.print("Select the teacher by index:");
             teacherIndex = sc.nextInt();
             teacher = teachers[teacherIndex];
             sc.nextLine();
@@ -95,7 +136,7 @@ public class Academia {
         int courseIndex;
         do {
             readCourses();
-            System.out.println("Select the course by index:");
+            System.out.print("Select the course by index:");
             courseIndex = sc.nextInt();
             course = courses[courseIndex];
             sc.nextLine();
@@ -141,7 +182,17 @@ public class Academia {
             }
         }
         System.out.println("============================");
-    }   
+    }
+
+    public void readCoursesFromStudent(Student student){
+        System.out.println("Student: " + student.getName());
+        Enrollment[] enrollments = student.getEnrollmentCourses();
+        for (int i = 0; i < enrollments.length; i++) {
+            if (enrollments[i] != null) {
+                System.out.println("Course: " + enrollments[i].getCourse().getName());
+            }
+        }
+    }
 
     public String getName() {
         return name;
