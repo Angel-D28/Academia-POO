@@ -174,6 +174,11 @@ public class Academia {
         }
     }
 
+    public void viewCourseDetails() {
+        Course course = selectCourse();
+        readCourse(course);
+    }
+
     public void readStudents(){
         System.out.println("==========Students==========");
         for (int i = 0; i < students.length; i++) {
