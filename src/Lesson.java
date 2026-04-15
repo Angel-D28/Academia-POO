@@ -24,10 +24,17 @@ public class Lesson {
         System.out.print("Insert the duration of the video in minutes: ");
         Duration durationInMinutes = Duration.ofMinutes(sc.nextInt());
         sc.nextLine();
+        readQuallity();
         System.out.print("Insert the quality of the video: ");
         Quality quality = Quality.valueOf(sc.nextLine().toUpperCase());
         Video recordedVideo = new Video(fileName, durationInMinutes, quality);
         this.setRecordedVideo(recordedVideo);
+    }
+
+    public void readQuallity(){
+        for (Quality q : Quality.values()) {
+        System.out.println(q.name() + " - " + q.getResolution());
+        }
     }
 
     public String getTitle() {

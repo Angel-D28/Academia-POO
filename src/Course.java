@@ -52,8 +52,8 @@ public class Course {
         createLesson(lessonTitle, date);
     }
 
-    public void updateVideo(){
-        Lesson selectedLesson  = selectLesson();
+    public void updateVideo() {
+        Lesson selectedLesson = selectLesson();
         selectedLesson.createVideo();
     }
 
@@ -67,27 +67,28 @@ public class Course {
             lesson = lessons[lessonIndex];
             sc.nextLine();
         } while (lesson == null);
-        
+
         return lesson;
     }
 
-    public void readLessons(){
+    public void readLessons() {
         System.out.println("==========Lessons==========");
         for (int i = 0; i < lessons.length; i++) {
             if (lessons[i] != null) {
-                System.out.println(i +") Title: " + lessons[i].getTitle() + " Date: " + lessons[i].getDate());
+                System.out
+                        .println(i + ") Title: " + lessons[i].getTitle() + " Date: " + lessons[i].getDate() + " Video: "
+                                + (lessons[i].getRecordedVideo() != null ? lessons[i].getRecordedVideo().getFileName()
+                                        : "No video"));
             }
         }
         System.out.println("============================");
     }
 
-
-
     public void createLesson(String videoTitle, String date) {
         Lesson lesson = new Lesson(videoTitle, date);
         addLessons(lesson);
     }
-    
+
     public void addEnrollment(Enrollment enrollment) {
         for (int i = 0; i < enrollments.length; i++) {
             if (enrollments[i] == null) {
@@ -101,7 +102,7 @@ public class Course {
         System.out.println("==========Enrollments==========");
         for (int i = 0; i < enrollments.length; i++) {
             if (enrollments[i] != null) {
-                System.out.println(i +") Student: " + enrollments[i].getStudent().getName());
+                System.out.println(i + ") Student: " + enrollments[i].getStudent().getName());
             }
         }
         System.out.println("============================");
